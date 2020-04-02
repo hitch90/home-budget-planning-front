@@ -1,4 +1,4 @@
-# TrezyFrontend
+# HomeBudgetPlanning Angular App
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.20.
 
@@ -19,8 +19,7 @@ export const environment = {
         categories: 'categories',
         account: 'account',
         accounts: 'accounts'
-    },
-    password: '2278a0f743d90e23b2fb4d009e6af10a', // Demo123
+    }
 };
 ```
 Path: `src/environments/environment.ts`
