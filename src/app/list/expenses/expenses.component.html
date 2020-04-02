@@ -1,32 +1,68 @@
 <div class="list__charts">
     <div>
         <h2 class="list__subtitle">według kategorii</h2>
-        <app-pie-chart [categories]="categories" *ngIf="categories.length"></app-pie-chart>
+        <app-loader *ngIf="!categories.length"></app-loader>
+        <app-pie-chart
+            [categories]="categories"
+            *ngIf="categories.length"
+        ></app-pie-chart>
     </div>
     <div>
         <h2 class="list__subtitle">według miesięcy</h2>
-        <app-bar-chart [data]="barChartData" *ngIf="barChartData.length"></app-bar-chart>
+        <app-loader *ngIf="!barChartData.length"></app-loader>
+
+        <app-bar-chart
+            [data]="barChartData"
+            *ngIf="barChartData.length"
+        ></app-bar-chart>
     </div>
 </div>
-<p-table [value]="tableData" [paginator]="true" [rows]="20" sortMode="multiple">
-    <ng-template pTemplate="header">
-        <tr>
-            <th pSortableColumn="id">#</th>
-            <th pSortableColumn="name">Nazwa</th>
-            <th pSortableColumn="value">Kwota</th>
-            <th pSortableColumn="date">Data</th>
-            <th>Kategoria</th>
-            <th>Konto</th>
-        </tr>
-    </ng-template>
-    <ng-template pTemplate="body" let-item>
-        <tr>
-            <td>{{item.id}}</td>
-            <td>{{ item.name }}</td>
-            <td>{{ item.value }}</td>
-            <td>{{ parseDate(item.date) }}</td>
-            <td>{{ item.category.name }}</td>
-            <td>{{ item.account.name }}</td>
-        </tr>
-    </ng-template>
-</p-table>
+
+<mat-form-field>
+    <input matInput (keyup)="applyFilter($event)" placeholder="Szukaj..." />
+</mat-form-field>
+
+<div>
+    <table mat-table [dataSource]="tableData" matSort style="width: 100%;" matSortActive="date" matSortDirection="desc">
+        <!-- ID Column -->
+        <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef>ID</th>
+            <td mat-cell *matCellDef="let row">{{ row.id }}</td>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Nazwa</th>
+            <td mat-cell *matCellDef="let row">{{ row.name }}</td>
+        </ng-container>
+
+        <!-- Value Column -->
+        <ng-container matColumnDef="value">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Wartość</th>
+            <td mat-cell *matCellDef="let row">{{ parseValue(row.value) }} <small>PLN</small></td>
+        </ng-container>
+
+        <!-- Date Column -->
+        <ng-container matColumnDef="date">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Data</th>
+            <td mat-cell *matCellDef="let row">{{ parseDate(row.date) }}</td>
+        </ng-container>       
+        
+        <!-- Category Column -->
+        <ng-container matColumnDef="category.name">
+            <th mat-header-cell *matHeaderCellDef>Kategoria</th>
+            <td mat-cell *matCellDef="let row">{{ row.category.name }}</td>
+        </ng-container>
+
+        <!-- Category Column -->
+        <ng-container matColumnDef="account.name">
+            <th mat-header-cell *matHeaderCellDef>Konto</th>
+            <td mat-cell *matCellDef="let row">{{ row.account.name }}</td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+
+    <mat-paginator [pageSizeOptions]="[10, 25, 100]"></mat-paginator>
+</div>

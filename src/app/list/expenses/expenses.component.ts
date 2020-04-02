@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ListWrapperComponent } from '../list-wrapper/list-wrapper.component';
 
 @Component({

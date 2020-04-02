@@ -19,6 +19,7 @@ import { RefillComponent } from '../refill/refill.component';
 })
 export class ListComponent implements OnInit, AfterViewInit {
     title = '';
+    filters = false;
     @ViewChild(ListDirective) appListComponent: ListDirective;
 
     constructor(
@@ -40,12 +41,15 @@ export class ListComponent implements OnInit, AfterViewInit {
         switch (type) {
             case 'expenses':
                 this.title = 'Wydatki';
+                this.filters = true;
                 return this.getListComponent(type);
             case 'incomes':
                 this.title = 'Przychody';
+                this.filters = false;
                 return this.getListComponent(type);
             case 'refill':
                 this.title = 'Tankowanie';
+                this.filters = true;
                 return this.getListComponent(type);
         }
     }

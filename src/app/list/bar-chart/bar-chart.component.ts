@@ -32,15 +32,15 @@ export class BarChartComponent implements OnInit {
         },
         xaxis: {
             categories: [
-                'Feb',
+                'Sty',
+                'Lut',
                 'Mar',
-                'Apr',
-                'May',
-                'Jun',
-                'Jul',
-                'Aug',
-                'Sep',
-                'Oct',
+                'Kwi',
+                'Maj',
+                'Cze',
+                'Lip',
+                'Sie',
+                'Wrz',
                 'Paź',
                 'Lis',
                 'Gru'

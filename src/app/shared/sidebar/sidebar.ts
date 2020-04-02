@@ -32,6 +32,12 @@ export const sidebarMenu = [
         icon: faMap
     },
     {
+        id: 4,
+        name: 'Stałe wydatki',
+        url: '/list/fixed-expenses',
+        icon: faFileInvoiceDollar
+    },
+    {
         id: 5,
         name: 'Kredyty',
         url: '/loan',

@@ -5,7 +5,7 @@
         </h1>
         <ng-container appListComponent></ng-container>
     </div>
-    <div class="list__sidebar">
+    <div class="list__sidebar" *ngIf="filters">
         <app-filters></app-filters>
     </div>
 </div>
