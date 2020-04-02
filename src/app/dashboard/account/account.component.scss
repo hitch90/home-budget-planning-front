@@ -1,0 +1,31 @@
+.account {
+    // background: #fff;
+    display: grid;
+    grid-template-columns: 80px calc(100% - 80px);
+    align-items: center;
+    border: 3px solid #fff;
+    padding: 15px;
+    border-radius: 10px;
+    &__logo {
+        padding: 5px;
+        background: #fff;
+        height: 80px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 5px;
+    }
+
+    &__name {
+        font: 800 12px/1.4 'Spartan';
+        margin-bottom: 10px;
+        padding: 0;
+        grid-column: span 2;
+        color: var(--text-color);
+        text-align: right;
+    }
+    &__val {
+        font: 800 18px/1.4 'Spartan';
+        text-align: right;
+    }
+}

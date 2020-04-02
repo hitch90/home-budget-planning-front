@@ -1,0 +1,29 @@
+<form class="adding-form" [formGroup]="accountForm" (submit)="submit()">
+    <h2 class="forms-title">
+        Dodaj konto
+    </h2>
+    <app-alert type="error" *ngIf="status === 'not-ok'" text="Wystąpił błąd, spróbuj ponownie później"></app-alert>
+    <app-alert type="success" *ngIf="status === 'ok'" text="Dodane!"></app-alert>
+    <div class="input">
+        <label for="name">
+            Nazwa
+        </label>
+        <input type="text" name="name" id="name" formControlName="name"/>
+    </div>
+    <div class="input">
+        <label for="startValue">
+            Początkowy stan konta
+        </label>
+        <div class="input-group">
+            <input type="number" name="startValue" id="startValue" formControlName="startValue" />
+            <input type="text" name="currency" id="currency" formControlName="currency" />
+        </div>
+    </div>
+    <div class="input">
+        <label for="type">
+            Typ konta
+        </label>
+        <input type="text" name="type" id="type" formControlName="type" />
+    </div>
+    <button type="submit" class="button button--primary">Dodaj</button>
+</form>

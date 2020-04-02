@@ -1,0 +1,23 @@
+<div class="sidebar" *ngIf="$currentUser | async">
+    <h1 class="sidebar__logo">
+        <a routerLink="/">
+            <img src="../../../assets/logo.png" alt="Budżet domowy" />
+        </a>
+    </h1>
+    <nav class="sidebar__nav">
+        <ul>
+            <li class="sidebar__nav-item" *ngFor="let item of menu">
+                <a class="sidebar__nav-link" [routerLink]="[item.url]" routerLinkActive="active">
+                    <fa-icon [icon]="item.icon"></fa-icon>
+                    {{ item.name }}
+                </a>
+            </li>
+            <li class="sidebar__nav-item">
+                <a class="sidebar__nav-link" (click)="logout()">
+                    <fa-icon [icon]="signout"></fa-icon>
+                    Wyloguj
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div>

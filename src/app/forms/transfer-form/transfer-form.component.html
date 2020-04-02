@@ -1,0 +1,32 @@
+<form class="adding-form" [formGroup]="transferForm" (submit)="submit()">
+    <h2 class="forms-title">
+        Transfer pomiędzy kontami
+    </h2>
+    <app-alert type="error" *ngIf="status === 'not-ok'" text="Wystąpił błąd, spróbuj ponownie później"></app-alert>
+    <app-alert type="success" *ngIf="status === 'ok'" text="Transfer wykonany pomyślnie!"></app-alert>
+    <div class="input">
+        <label for="from">
+            Z konta
+        </label>
+        <select id="from" formControlName="from">
+            <option *ngFor="let item of (accounts$ | async)" [value]="item.id">{{ item.name }}</option>
+        </select>
+    </div>
+    <div class="input">
+        <label for="to">
+            Na konto
+        </label>
+        <select id="to" formControlName="to">
+            <option *ngFor="let item of (accounts$ | async)" [value]="item.id">{{ item.name }}</option>
+        </select>
+    </div>
+    <div class="input">
+        <label for="value">
+            Wartość
+        </label>
+        <input type="number" name="value" id="value" formControlName="value"/>
+    </div>
+
+    <button type="submit" class="button button--primary">Transferuj</button>
+
+</form>

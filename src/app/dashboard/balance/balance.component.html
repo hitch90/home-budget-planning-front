@@ -1,0 +1,16 @@
+<div class="balance">
+    <div class="balance__loader" *ngIf="isLoading">
+        <app-loader></app-loader>
+    </div>
+    <div class="balance__content" *ngIf="!isLoading">
+        <h2 class="balance__title">
+           <fa-icon [icon]="faPiggyBank"></fa-icon> Aktualny stan konta
+        </h2>
+        <h3 class="balance__value">
+            {{ balance }}
+            <small>
+                pln
+            </small>
+        </h3>
+    </div>
+</div>

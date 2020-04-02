@@ -1,0 +1,32 @@
+<div class="login">
+    <form (ngSubmit)="login()" class="forms" [formGroup]="authForm">
+        <div class="forms__container">
+            <h2 class="forms__title">
+                Zaloguj się
+            </h2>
+            <mat-form-field class="input" appearance="outline">
+                <mat-label>Użytkownik</mat-label>
+                <input
+                    type="text"
+                    name="username"
+                    formControlName="username"
+                    matInput
+                />
+            </mat-form-field>
+            <mat-form-field class="input" appearance="outline">
+                <mat-label>Hasło</mat-label>
+                <input
+                    type="password"
+                    name="password"
+                    autocomplete="new-password"
+                    formControlName="password"
+                    matInput
+                />
+            </mat-form-field>
+            <button class="forms__button">
+                Zaloguj się
+            </button>
+        </div>
+    </form>
+
+</div>

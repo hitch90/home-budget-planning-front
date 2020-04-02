@@ -1,0 +1,27 @@
+.categories {
+    color: var(--text-color);
+    display: flex;
+    flex-wrap: wrap;
+    &__item {
+        padding: 5px;
+        margin: 5px 8px;
+        display: inline-block;
+        width: 160px;
+        border-bottom: 3px solid #fff;
+        cursor: pointer;
+    }
+    &__name {
+        font: 800 11px/14px 'Spartan';
+        margin-bottom: 5px;
+        padding: 0;
+        height: 14px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        color: var(--text-color);
+        white-space: nowrap;
+    }
+    &__val {
+        font: 800 12px/1.4 'Spartan';
+        margin: 0 0 8px;
+    }
+}

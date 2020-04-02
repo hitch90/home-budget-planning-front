@@ -1,0 +1,27 @@
+<div class="stats">
+    <h2 class="stats__title">
+        Statystyki
+    </h2>
+    <div class="stats__last">
+        <h3 class="stats__subtitle">
+            Poprzedni miesiąc
+        </h3>
+        <h4 class="stats__val plus">
+            <fa-icon [icon]="iconUp"></fa-icon> {{ income.last }}
+        </h4>
+        <h4 class="stats__val minus">
+            <fa-icon [icon]="iconDown"></fa-icon> {{ expense.last }}
+        </h4>
+    </div>
+    <div class="stats__current">
+        <h3 class="stats__subtitle">
+            Aktualny miesiąc
+        </h3>
+        <h4 class="stats__val plus">
+            <fa-icon [icon]="iconUp"></fa-icon> {{ income.current }}
+        </h4>
+        <h4 class="stats__val minus">
+            <fa-icon [icon]="iconDown"></fa-icon> {{ expense.current }}
+        </h4>
+    </div>
+</div>

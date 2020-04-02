@@ -1,0 +1,37 @@
+.balance {
+    background-image: url('../../../assets/bg-balance.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    border-radius: 10px;
+    overflow: hidden;
+    
+    &__loader {
+        display: flex;
+        justify-content: center;
+        padding: 50px;
+        background: rgba(0, 0, 0, 0.45);
+        position: relative;
+    }
+    &__content {
+        background: rgba(0, 0, 0, 0.45);
+        padding: 30px;
+        color: #fff;
+    }
+    &__title {
+        font: 600 18px/1.4 'Spartan';
+        margin-bottom: 25px;
+        opacity: 0.9;
+    }
+    &__value {
+        font: 800 30px/1.4 'Spartan';
+        small {
+            font-size: 50%;
+            text-transform: uppercase;
+        }
+    }
+    .ng-fa-icon {
+        font-size: 26px;
+        margin-right: 10px;
+    }
+}

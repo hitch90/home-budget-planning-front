@@ -1,0 +1,40 @@
+.stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 0 20px;
+    color: var(--text-color);
+    background: #fff;
+    padding: 18px 30px;
+    border-radius: 10px;
+    &__title {
+        font: 800 18px/1.4 'Spartan';
+        margin-bottom: 15px;
+        padding: 0;
+        grid-column: span 2;
+        color: var(--text-color);
+    }
+    
+    &__subtitle {
+        font: 600 14px/1.4 'Spartan';
+        margin-bottom: 10px;
+        padding: 0;
+    }
+    
+    &__val {
+        font: 800 14px/1.4 'Spartan';
+        margin: 0 0 10px;
+        &.plus {
+            .ng-fa-icon {
+                color: #62a78e;
+            }
+        }
+        &.minus {
+            .ng-fa-icon {
+                color: #fb5870;
+            }
+        }
+        .ng-fa-icon {
+            margin-right: 8px;
+        }
+    }
+}

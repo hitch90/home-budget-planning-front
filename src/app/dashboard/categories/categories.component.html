@@ -1,0 +1,15 @@
+<div class="categories">
+    <div
+        class="categories__item"
+        *ngFor="let cat of categories"
+        [routerLink]="['/list', 'expenses']"
+        [queryParams]="{ category: cat.id, month: getMonth(), year: getYear() }"
+    >
+        <h2 class="categories__name">
+            {{ cat.name }}
+        </h2>
+        <h3 class="categories__val">
+            {{ formatVal(cat.sum || 0) }}
+        </h3>
+    </div>
+</div>

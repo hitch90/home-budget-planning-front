@@ -1,0 +1,27 @@
+/* You can add global styles to this file, and also import other style files */
+@import '@angular/material/prebuilt-themes/deeppurple-amber.css';
+@import "app/shared/styles/reset";
+
+:root {
+    --background: #F5F6FA;
+    --page-background: #fff;
+    --link-color: #A5ADC6;
+    --link-hover: #3B4153;
+    --text-color: #3B4153;
+}
+/*
+font-family: 'Spartan', sans-serif;
+font-family: 'Lato', sans-serif;
+font-family: 'Raleway', sans-serif;
+font-family: 'Poppins', sans-serif;
+*/
+body {
+    background: var(--background);
+    min-height: 0;
+}
+@import '~@swimlane/ngx-datatable/index.css';
+@import '~@swimlane/ngx-datatable/themes/material.scss';
+@import '~@swimlane/ngx-datatable/assets/icons.css';
+@import 'sweetalert2/src/sweetalert2.scss';
+
+@import "app/shared/styles/layout";

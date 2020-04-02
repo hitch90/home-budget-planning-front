@@ -1,0 +1,24 @@
+.expense {
+    background: #fff;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 8px 0;
+    display: grid;
+    grid-template-columns: 40px calc(100% - 40px - 80px - 40px) 80px;
+    grid-gap: 0 20px;
+    align-items: center;
+    &:hover {
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    }
+    &__name {
+        font: 800 11px/30px 'Spartan';
+        padding: 0;
+        color: var(--text-color);
+    }
+    &__value {
+        font: 800 11px/30px 'Spartan';
+        padding: 0;
+        color: var(--link-color);
+        text-align: right;
+    }
+}

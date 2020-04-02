@@ -1,0 +1,20 @@
+<form class="adding-form" [formGroup]="categoryForm" (submit)="submit()">
+    <h2 class="forms-title">
+        Dodaj kategorię
+    </h2>
+    <app-alert type="error" *ngIf="status === 'not-ok'" text="Wystąpił błąd, spróbuj ponownie później"></app-alert>
+    <app-alert type="success" *ngIf="status === 'ok'" text="Dodane!"></app-alert>
+    <div class="input">
+        <label for="name">
+            Nazwa
+        </label>
+        <input type="text" name="name" id="name" formControlName="name"/>
+    </div>
+    <div class="input">
+        <label for="image">
+            Ikona
+        </label>
+        <input type="text" name="image" id="image" formControlName="image"/>
+    </div>
+    <button type="submit" class="button button--primary">Dodaj</button>
+</form>

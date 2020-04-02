@@ -1,0 +1,32 @@
+<div class="list__charts">
+    <div>
+        <h2 class="list__subtitle">według kategorii</h2>
+        <app-pie-chart [categories]="categories" *ngIf="categories.length"></app-pie-chart>
+    </div>
+    <div>
+        <h2 class="list__subtitle">według miesięcy</h2>
+        <app-bar-chart [data]="barChartData" *ngIf="barChartData.length"></app-bar-chart>
+    </div>
+</div>
+<p-table [value]="tableData" [paginator]="true" [rows]="20" sortMode="multiple">
+    <ng-template pTemplate="header">
+        <tr>
+            <th pSortableColumn="id">#</th>
+            <th pSortableColumn="name">Nazwa</th>
+            <th pSortableColumn="value">Kwota</th>
+            <th pSortableColumn="date">Data</th>
+            <th>Kategoria</th>
+            <th>Konto</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-item>
+        <tr>
+            <td>{{item.id}}</td>
+            <td>{{ item.name }}</td>
+            <td>{{ item.value }}</td>
+            <td>{{ parseDate(item.date) }}</td>
+            <td>{{ item.category.name }}</td>
+            <td>{{ item.account.name }}</td>
+        </tr>
+    </ng-template>
+</p-table>

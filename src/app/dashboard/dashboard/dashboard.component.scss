@@ -1,0 +1,74 @@
+.dashboard {
+    &__grid {
+        
+    }
+    &__balance {
+        display: grid;
+        grid-template-columns: 400px 400px calc(100% - 640px - 220px);
+        grid-gap: 30px;
+        align-items: center;
+    }
+    &__accounts {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        grid-gap: 0 30px;
+        margin: 50px 0;
+    }
+    
+    &__title {
+        grid-column: span 5;
+        font: 800 26px/1.4 'Spartan';
+        padding: 0;
+        color: var(--text-color);
+        margin: 30px 0 15px;
+    }
+
+    &__subtitle {
+        font: 800 12px/1.4 'Spartan';
+        padding: 0;
+        color: var(--text-color);
+        margin: 0 0 5px;
+        span {
+            font-weight: 400;
+            margin-left: 15px;
+            display: inline-block;
+        }
+    }
+
+    &__info {
+        font: 400 12px/1.4 'Lato';
+        color: var(--text-color);
+        border: 2px solid #fff;
+        border-radius: 5px;
+        padding: 8px;
+        margin: 0 0 10px;
+    }
+
+    &__chart {
+        display: grid;
+        grid-template-columns: 3fr 1fr;
+        grid-gap: 30px;
+        margin: 50px 0;
+        align-items: flex-start;
+
+        .dashboard__title {
+            margin-top: 0;
+            grid-column: span 3;
+        }
+
+        .dashboard__subtitle {
+            margin-bottom: 10px;
+        }
+    }
+    
+    &__expenses {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-gap: 20px;
+        & > div {
+            max-height: 350px;
+            overflow: auto;
+        }
+    }
+    
+}

@@ -1,0 +1,48 @@
+<form class="adding-form" [formGroup]="expenseForm" (submit)="submit()">
+    <h2 class="forms-title">
+        Dodaj zakup
+    </h2>
+    <app-alert type="error" *ngIf="status === 'not-ok'" text="Wystąpił błąd, spróbuj ponownie później"></app-alert>
+    <app-alert type="success" *ngIf="status === 'ok'" text="Dodane!"></app-alert>
+    <div class="input">
+        <label for="name">
+            Nazwa
+        </label>
+        <input type="text" name="name" id="name" formControlName="name"/>
+    </div>
+    <div class="input">
+        <label for="value">
+            Wartość
+        </label>
+        <div class="input-group">
+            <input type="number" name="value" id="value" formControlName="value"/>
+            <input type="text" name="currency" id="currency" formControlName="currency"/>
+        </div>
+    </div>
+    <div class="input">
+        <label>Data zakupu</label>
+        <div class="input-group">
+            <input [matDatepicker]="picker" placeholder="Choose a date" formControlName="date" />
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </div>
+        
+    </div>
+    <div class="input">
+        <label for="category">
+            Kategoria
+        </label>
+        <select id="category" formControlName="category">
+            <option *ngFor="let item of (categories$ | async)" [value]="item.id">{{ item.name }}</option>
+        </select>
+    </div>
+    <div class="input">
+        <label for="account">
+            Konto
+        </label>
+        <select id="account" formControlName="account">
+            <option *ngFor="let item of (accounts$ | async)" [value]="item.id">{{ item.name }}</option>
+        </select>
+    </div>
+    <button type="submit" class="button button--primary">Dodaj</button>
+</form>
