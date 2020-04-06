@@ -26,7 +26,8 @@ export class AccountFormComponent implements OnInit {
             image: [''],
             startValue: [0, Validators.required],
             currency: ['pln', Validators.required],
-            type: ['', Validators.required]
+            type: ['', Validators.required],
+            color: ['', Validators.required],
         });
     }
 
@@ -40,7 +41,8 @@ export class AccountFormComponent implements OnInit {
                     description: '',
                     startValue: 0,
                     currency: 'pln',
-                    type: ''
+                    type: '',
+                    color: '',
                 });
             },
             () => (this.status = 'not-ok')

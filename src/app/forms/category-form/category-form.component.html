@@ -15,6 +15,32 @@
             Ikona
         </label>
         <input type="text" name="image" id="image" formControlName="image"/>
+    </div>   
+    <div class="input">
+        <label for="color">
+            Kolor
+        </label>
+        <input type="text" name="image" id="color" formControlName="color"/>
+    </div>
+    <div class="input">
+        <label for="type">
+            Typ
+        </label>
+        <select formControlName="type" id="type">
+            <option value="expense">Wydatki</option>
+            <option value="income">Przychody</option>
+        </select>
+    </div>
+    <div class="input">
+        <label for="parentId">
+            Kategoria nadrzędna
+        </label>
+        <select formControlName="parentId" id="parentId">
+            <option value="">Brak</option>
+            <option *ngFor="let category of categories" [value]="category.id">
+                {{ category.name }}
+            </option>
+        </select>
     </div>
     <button type="submit" class="button button--primary">Dodaj</button>
 </form>

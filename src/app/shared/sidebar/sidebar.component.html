@@ -11,6 +11,9 @@
                     <fa-icon [icon]="item.icon"></fa-icon>
                     {{ item.name }}
                 </a>
+                <a *ngIf="item?.add" class="sidebar__nav-add" [routerLink]="[item.add]">
+                    <fa-icon [icon]="plus"></fa-icon>
+                </a>
             </li>
             <li class="sidebar__nav-item">
                 <a class="sidebar__nav-link" (click)="logout()">
