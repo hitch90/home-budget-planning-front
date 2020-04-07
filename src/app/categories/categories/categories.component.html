@@ -1,0 +1,14 @@
+<div class="categories">
+    <div class="categories__list">
+        <h2 class="categories__title">
+            Lista kategorii
+        </h2>
+        <app-categories-tree [categories]="categories"></app-categories-tree>
+    </div>
+    <div class="categories__form">
+        <h2 class="categories__title">
+            Dodaj kategorię
+        </h2>
+        <app-category-form (addedCategory)="updateList()"></app-category-form>
+    </div>
+</div>

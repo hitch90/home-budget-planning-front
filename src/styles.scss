@@ -8,6 +8,11 @@
     --link-color: #A5ADC6;
     --link-hover: #3B4153;
     --text-color: #3B4153;
+    --primary-color: #3366ff;
+    --success-color: #00d68f;
+    --warning-color: #ffaa00;
+    --danger-color: #ff3d71;
+    --info-color: #0095ff;
 }
 /*
 font-family: 'Spartan', sans-serif;
@@ -25,3 +30,43 @@ body {
 @import 'sweetalert2/src/sweetalert2.scss';
 
 @import "app/shared/styles/layout";
+@import "app/shared/styles/alert";
+@import "app/shared/styles/button";
+
+
+
+.forms {
+    &-title {
+        font: 800 26px/1.4 "Spartan";
+        color: var(--text-color);
+        margin-bottom: 30px;
+    }
+}
+
+.input {
+    margin-bottom: 20px;
+    label:not(.checkbox) {
+        display: block;
+        font: 600 14px/30px 'Spartan';
+        color: var(--text-color);
+    }
+    input[type="text"],
+    input[type="number"],
+    select {
+        background-color: #f7f9fc;
+        color: #222b45;
+        border: 1px solid #e4e9f2;
+        border-radius: 5px;
+        height: 40px;
+        padding: 0 10px;
+        outline: none;
+        transition: all 0.3s;
+        font: 400 14px/38px 'Lato';
+        display: block;
+        width: 100%;
+        &:focus {
+            background-color: #ffffff;
+            border-color: #3366ff;
+        }
+    }
+}

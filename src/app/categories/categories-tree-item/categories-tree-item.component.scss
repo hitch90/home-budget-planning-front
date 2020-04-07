@@ -1,0 +1,26 @@
+.categories-tree {
+    &__item {
+        background: #fff;
+        &-data {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+    }
+    &__children {
+        padding: 0 0 0 20px;
+    }
+    &__icon {
+        width: 35px;
+        height: 35px;
+        line-height: 35px;
+        border-radius: 5px;
+        text-align: center;
+        margin-right: 10px;
+        color: var(--primary-color);
+        font-size: 14px;
+    }
+    &__name {
+        font: 600 13px/30px 'Spartan', sans-serif;
+    }
+}

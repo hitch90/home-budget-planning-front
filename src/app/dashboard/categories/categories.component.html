@@ -1,16 +1,23 @@
 <div class="categories">
-    <div
-        class="categories__item"
-        *ngFor="let cat of categories"
-        [routerLink]="['/list', 'expenses']"
-        [queryParams]="{ category: cat.id, month: getMonth(), year: getYear() }"
-    >
-        <h2 class="categories__name">
-            {{ cat.name }}
-        </h2>
-        <i class="fas fa-{{ cat.image }}"></i>
-        <h3 class="categories__val">
-            {{ formatVal(cat.sum || 0) }}
-        </h3>
-    </div>
+    <ng-container *ngFor="let cat of categories">
+        <div
+            class="categories__item"
+            [routerLink]="['/list', 'expenses']"
+            [queryParams]="{ category: cat.id, month: getMonth(), year: getYear() }"
+            *ngIf="cat.type === 'expense'"
+        >
+            <span 
+                class="categories__icon"
+                [ngStyle]="{ backgroundColor: cat.color}"
+            >
+                <i class="fas fa-{{ cat.image }}"></i>
+            </span>
+            <h2 class="categories__name">
+                {{ cat.name }}
+            </h2>
+            <h3 class="categories__val">
+                {{ formatVal(cat?.expensesSum || 0) }}
+            </h3>
+        </div>
+    </ng-container>
 </div>

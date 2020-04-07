@@ -14,7 +14,7 @@
                     Ostatnie wydatki
                 </h2>
                 <div
-                    class="dashboard__info"
+                    class="alert info"
                     *ngIf="lastExpensesList.length === 0"
                 >
                     Brak wydatków
@@ -26,7 +26,10 @@
             </div>
             <div class="dashboard__categories">
                 <h2 class="dashboard__title">Według kategorii</h2>
-                <app-categories [categories]="categories"></app-categories>
+                <app-categories [categories]="categories" *ngIf="categories.length"></app-categories>
+                <div class="alert info" *ngIf="!categories.length">
+                    Brak kategorii. <a routerLink="/categories">Dodaj</a> nową kategorię.
+                </div>
             </div>
         </div>
         <div class="dashboard__accounts">
@@ -47,7 +50,7 @@
                 *ngFor="let acc of saving"
                 [account]="acc"
             ></app-account>
-            <div class="alert alert-info" *ngIf="!saving.length">
+            <div class="alert info" *ngIf="!saving.length">
                 Brak kont.
             </div>
         </div>

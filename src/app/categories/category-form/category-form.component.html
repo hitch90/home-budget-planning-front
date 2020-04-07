@@ -1,8 +1,6 @@
-<form class="adding-form" [formGroup]="categoryForm" (submit)="submit()">
-    <h2 class="forms-title">
-        Dodaj kategorię
-    </h2>
-    <app-alert type="error" *ngIf="status === 'not-ok'" text="Wystąpił błąd, spróbuj ponownie później"></app-alert>
+<form class="adding-form small" [formGroup]="categoryForm" (submit)="submit()">
+    <app-alert type="danger" *ngIf="status === 'not-ok' && categoryForm.valid" text="Wystąpił błąd, spróbuj ponownie później"></app-alert>
+    <app-alert type="danger" *ngIf="status === 'not-ok' && !categoryForm.valid" text="Wypełnij prawdiłowo wszystkie pola."></app-alert>
     <app-alert type="success" *ngIf="status === 'ok'" text="Dodane!"></app-alert>
     <div class="input">
         <label for="name">
@@ -12,7 +10,7 @@
     </div>
     <div class="input">
         <label for="image">
-            Ikona
+            Ikona <a href="https://fontawesome.com/icons?d=gallery&m=free" target="_blank">(dostępne ikony)</a>
         </label>
         <input type="text" name="image" id="image" formControlName="image"/>
     </div>   
@@ -32,10 +30,10 @@
         </select>
     </div>
     <div class="input">
-        <label for="parentId">
+        <label for="parent">
             Kategoria nadrzędna
         </label>
-        <select formControlName="parentId" id="parentId">
+        <select formControlName="parent" id="parent">
             <option value="">Brak</option>
             <option *ngFor="let category of categories" [value]="category.id">
                 {{ category.name }}

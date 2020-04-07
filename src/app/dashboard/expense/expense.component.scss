@@ -1,24 +1,30 @@
 .expense {
+    padding: 10px;
+    margin: 10px 0;
+    cursor: pointer;
+    display: flex;
     background: #fff;
     border-radius: 5px;
-    padding: 10px;
-    margin: 8px 0;
-    display: grid;
-    grid-template-columns: 40px calc(100% - 40px - 80px - 40px) 80px;
-    grid-gap: 0 20px;
     align-items: center;
+    transition: all 0.3s;
     &:hover {
-        box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 10px 15px -10px rgba(0, 0, 0, 0.15);
+    }
+    &__icon {
+        width: 35px;
+        height: 35px;
+        line-height: 35px;
+        border-radius: 5px;
+        text-align: center;
+        margin-right: 10px;
+        color: var(--primary-color);
+        font-size: 14px;
     }
     &__name {
-        font: 800 11px/30px 'Spartan';
-        padding: 0;
-        color: var(--text-color);
+        font: 600 13px/30px 'Spartan', sans-serif;
     }
     &__value {
-        font: 800 11px/30px 'Spartan';
-        padding: 0;
-        color: var(--link-color);
-        text-align: right;
+        font: 800 15px/1.4 'Poppins';
+        margin: 0 0 0 auto;
     }
 }

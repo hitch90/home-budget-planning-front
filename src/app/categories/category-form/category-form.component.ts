@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CategoryService } from '../../services/category.service';
 import { ICategory } from '../../interfaces/category';
@@ -9,6 +9,7 @@ import { ICategory } from '../../interfaces/category';
     styleUrls: ['./category-form.component.scss']
 })
 export class CategoryFormComponent implements OnInit {
+    @Output() addedCategory: EventEmitter<any> = new EventEmitter<any>();
     categoryForm: FormGroup;
     categories: ICategory[];
     status: string;
@@ -29,7 +30,7 @@ export class CategoryFormComponent implements OnInit {
             description: [''],
             image: [''],
             color: ['#F1F5FC'],
-            parentId: [],
+            parent: [],
             type: ['', Validators.required]
         });
     }
@@ -43,23 +44,28 @@ export class CategoryFormComponent implements OnInit {
     }
 
     submit() {
-        const values = this.categoryForm.getRawValue();
-        this.categoryService
-            .create({
-                ...values
-            })
-            .subscribe(
-                () => {
-                    this.status = 'ok';
-                    this.categoryForm.patchValue({
-                        name: '',
-                        description: '',
-                        image: '',
-                        color: '#F1F5FC',
-                        type: '',
-                    });
-                },
-                () => (this.status = 'not-ok')
-            );
+        if (this.categoryForm.valid) {
+            const values = this.categoryForm.getRawValue();
+            this.categoryService
+                .create({
+                    ...values
+                })
+                .subscribe(
+                    () => {
+                        this.status = 'ok';
+                        this.categoryForm.patchValue({
+                            name: '',
+                            description: '',
+                            image: '',
+                            color: '#F1F5FC',
+                            type: '',
+                        });
+                        this.addedCategory.emit();
+                    },
+                    () => this.status = 'not-ok'
+                );
+        } else {
+            this.status = 'not-ok';
+        }
     }
 }

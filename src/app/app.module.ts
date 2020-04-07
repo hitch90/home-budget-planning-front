@@ -16,6 +16,8 @@ import { DashboardModule } from './dashboard/dashboard.module';
 import { DashboardRoutingModule } from './dashboard/dashboard-routing.module';
 import { ListRoutingModule } from './list/list-routing.module';
 import { ListModule } from './list/list.module';
+import { CategoriesModule } from './categories/categories.module';
+import { CategoriesRoutingModule } from './categories/categories-routing.module';
 
 @NgModule({
     declarations: [AppComponent, LoginComponent],
@@ -34,7 +36,9 @@ import { ListModule } from './list/list.module';
         DashboardModule,
         DashboardRoutingModule,
         ListRoutingModule,
-        ListModule
+        ListModule,
+        CategoriesModule,
+        CategoriesRoutingModule
     ],
     providers: [
         { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

@@ -33,7 +33,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
         last: 0
     };
     categories$: Subscription;
-    categories: ICategory[];
+    categories: ICategory[] = [];
     accounts$: Subscription;
     accounts = [];
     saving = [];
@@ -72,7 +72,11 @@ export class DashboardComponent implements OnInit, OnDestroy {
     }
 
     getLastExpenses() {
-        this.expenseService.getExpenses({ limit: 5 }).subscribe((expenses: any) => this.lastExpensesList = expenses.list);
+        this.expenseService
+            .getExpenses({ limit: 5 })
+            .subscribe(
+                (expenses: any) => (this.lastExpensesList = expenses.list)
+            );
     }
 
     getBalanceInMonths() {
@@ -103,18 +107,25 @@ export class DashboardComponent implements OnInit, OnDestroy {
     getSum(key, month, year): void {
         this.expenses$ = this.expenseService
             .getExpenses({ month: month + 1, year })
-            .subscribe(data => {
-                this.expenses[key] = this.formatVal(data['sum']);
-            });
+            .subscribe(
+                data => (this.expenses[key] = this.formatVal(data['sum']))
+            );
         this.incomes$ = this.incomeService
             .getIncomes({ month: month + 1, year })
-            .subscribe(data => {
-                this.incomes[key] = this.formatVal(data['sum']);
-            });
+            .subscribe(
+                data => (this.incomes[key] = this.formatVal(this.calc(data)))
+            );
+    }
+
+    calc(arr) {
+        return arr.reduce(
+            (previousValue, income) => previousValue + income.value,
+            0
+        );
     }
 
     formatVal(val): number {
-        return formatValue(val);
+        return val ? formatValue(val) : 0;
     }
 
     private getMonthAndYear(mod): MonthYear {

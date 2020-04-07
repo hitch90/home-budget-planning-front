@@ -1,4 +1,4 @@
-import { faTachometerAlt, faFileInvoiceDollar, faChartLine, faRoute, faMap, faLandmark } from '@fortawesome/free-solid-svg-icons';
+import { faTachometerAlt, faFileInvoiceDollar, faChartLine, faRoute, faMap, faLandmark, faListUl } from '@fortawesome/free-solid-svg-icons';
 
 export const sidebarMenu = [
     {
@@ -45,5 +45,11 @@ export const sidebarMenu = [
         name: 'Kredyty',
         url: '/loan',
         icon: faLandmark
+    },
+    {
+        id: 6,
+        name: 'Kategorie',
+        url: '/categories',
+        icon: faListUl
     }
 ];
