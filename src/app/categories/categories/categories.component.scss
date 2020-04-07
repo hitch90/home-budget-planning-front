@@ -1,0 +1,12 @@
+.categories {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-gap: 30px;
+    &__form {}
+    &__title {
+        font: 800 26px/1.4 "Spartan";
+        color: var(--text-color);
+        margin-bottom: 30px;
+    }
+    
+}

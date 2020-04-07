@@ -7,7 +7,6 @@ import { CategoryService } from '../../services/category.service';
 import { map } from 'rxjs/operators';
 import { ICategory } from '../../interfaces/category';
 import { IncomeService } from '../../services/income.service';
-import * as dayjs from 'dayjs';
 
 interface MonthYear {
     month: number;
@@ -34,7 +33,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
         last: 0
     };
     categories$: Subscription;
-    categories: ICategory[];
+    categories: ICategory[] = [];
     accounts$: Subscription;
     accounts = [];
     saving = [];
@@ -43,11 +42,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
         expenses: [],
         balance: []
     };
-    expensesList = {
-        today: { list: [], sum: 0 },
-        yesterday: { list: [], sum: 0 },
-        dayBeforeYesterday: { list: [], sum: 0 }
-    };
+    lastExpensesList = [];
     constructor(
         private accountService: AccountService,
         private expenseService: ExpenseService,
@@ -66,49 +61,22 @@ export class DashboardComponent implements OnInit, OnDestroy {
         this.getCategories();
         this.getAccounts();
         this.getBalanceInMonths();
-        this.getExpensesFrom3Days();
+        this.getLastExpenses();
     }
 
     ngOnDestroy(): void {
         this.balance$.unsubscribe();
+        this.categories$.unsubscribe();
+        this.incomes$.unsubscribe();
+        this.expenses$.unsubscribe();
     }
 
-    getExpensesFrom3Days() {
-        const today = {
-            from: dayjs().format('YYYY-MM-DD 00:00:00'),
-            to: dayjs().format('YYYY-MM-DD 23:59:59')
-        };
-        const yesterday = {
-            from: dayjs()
-                .add(-1, 'day')
-                .format('YYYY-MM-DD 00:00:00'),
-            to: dayjs()
-                .add(-1, 'day')
-                .format('YYYY-MM-DD 23:59:59')
-        };
-        const dayBeforeYesterday = {
-            from: dayjs()
-                .add(-4, 'day')
-                .format('YYYY-MM-DD 00:00:00'),
-            to: dayjs()
-                .add(-2, 'day')
-                .format('YYYY-MM-DD 23:59:59')
-        };
-        combineLatest(
-            this.expenseService.getExpenses({ from: today.from, to: today.to }),
-            this.expenseService.getExpenses({
-                from: yesterday.from,
-                to: yesterday.to
-            }),
-            this.expenseService.getExpenses({
-                from: dayBeforeYesterday.from,
-                to: dayBeforeYesterday.to
-            })
-        ).subscribe(([todayRes, yesterdayRes, dayBeforeYesterdayRes]: any) => {
-            this.expensesList.today = todayRes;
-            this.expensesList.yesterday = yesterdayRes;
-            this.expensesList.dayBeforeYesterday = dayBeforeYesterdayRes;
-        });
+    getLastExpenses() {
+        this.expenseService
+            .getExpenses({ limit: 5 })
+            .subscribe(
+                (expenses: any) => (this.lastExpensesList = expenses.list)
+            );
     }
 
     getBalanceInMonths() {
@@ -139,18 +107,25 @@ export class DashboardComponent implements OnInit, OnDestroy {
     getSum(key, month, year): void {
         this.expenses$ = this.expenseService
             .getExpenses({ month: month + 1, year })
-            .subscribe(data => {
-                this.expenses[key] = this.formatVal(data['sum']);
-            });
+            .subscribe(
+                data => (this.expenses[key] = this.formatVal(data['sum']))
+            );
         this.incomes$ = this.incomeService
             .getIncomes({ month: month + 1, year })
-            .subscribe(data => {
-                this.incomes[key] = this.formatVal(data['sum']);
-            });
+            .subscribe(
+                data => (this.incomes[key] = this.formatVal(this.calc(data)))
+            );
+    }
+
+    calc(arr) {
+        return arr.reduce(
+            (previousValue, income) => previousValue + income.value,
+            0
+        );
     }
 
     formatVal(val): number {
-        return formatValue(val);
+        return val ? formatValue(val) : 0;
     }
 
     private getMonthAndYear(mod): MonthYear {
@@ -166,7 +141,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
     getCategories(): void {
         this.categories$ = this.categoryService
-            .findAll()
+            .findParent()
             .pipe(
                 map((cat: ICategory[]) => {
                     cat.map((item: ICategory) => {

@@ -1,0 +1,44 @@
+<form class="adding-form small" [formGroup]="categoryForm" (submit)="submit()">
+    <app-alert type="danger" *ngIf="status === 'not-ok' && categoryForm.valid" text="Wystąpił błąd, spróbuj ponownie później"></app-alert>
+    <app-alert type="danger" *ngIf="status === 'not-ok' && !categoryForm.valid" text="Wypełnij prawdiłowo wszystkie pola."></app-alert>
+    <app-alert type="success" *ngIf="status === 'ok'" text="Dodane!"></app-alert>
+    <div class="input">
+        <label for="name">
+            Nazwa
+        </label>
+        <input type="text" name="name" id="name" formControlName="name"/>
+    </div>
+    <div class="input">
+        <label for="image">
+            Ikona <a href="https://fontawesome.com/icons?d=gallery&m=free" target="_blank">(dostępne ikony)</a>
+        </label>
+        <input type="text" name="image" id="image" formControlName="image"/>
+    </div>   
+    <div class="input">
+        <label for="color">
+            Kolor
+        </label>
+        <input type="text" name="image" id="color" formControlName="color"/>
+    </div>
+    <div class="input">
+        <label for="type">
+            Typ
+        </label>
+        <select formControlName="type" id="type">
+            <option value="expense">Wydatki</option>
+            <option value="income">Przychody</option>
+        </select>
+    </div>
+    <div class="input">
+        <label for="parent">
+            Kategoria nadrzędna
+        </label>
+        <select formControlName="parent" id="parent">
+            <option value="">Brak</option>
+            <option *ngFor="let category of categories" [value]="category.id">
+                {{ category.name }}
+            </option>
+        </select>
+    </div>
+    <button type="submit" class="button button--primary">Dodaj</button>
+</form>

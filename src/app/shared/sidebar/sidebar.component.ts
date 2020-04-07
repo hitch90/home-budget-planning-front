@@ -3,6 +3,7 @@ import { sidebarMenu } from './sidebar';
 import { AuthenticationService } from '../../services/authentication.service';
 import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import {Router} from '@angular/router';
+import { faPlus } from '@fortawesome/free-solid-svg-icons/faPlus';
 
 @Component({
     selector: 'app-sidebar',
@@ -12,6 +13,7 @@ import {Router} from '@angular/router';
 export class SidebarComponent implements OnInit {
     menu = sidebarMenu;
     signout = faSignOutAlt;
+    plus = faPlus;
     $currentUser;
     constructor(private authService: AuthenticationService, private router: Router) {}
 

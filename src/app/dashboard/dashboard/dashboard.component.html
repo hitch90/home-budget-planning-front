@@ -8,63 +8,28 @@
             <app-stats [expense]="expenses" [income]="incomes"></app-stats>
             <app-chart [data]="monthsData"></app-chart>
         </div>
-        <div class="dashboard__chart">
+        <div class="dashboard__expensesStats">
             <div class="dashboard__expenses">
                 <h2 class="dashboard__title">
                     Ostatnie wydatki
                 </h2>
-                <div>
-                    <h3 class="dashboard__subtitle">
-                        Dzisiaj
-                        <span>{{ formatVal(expensesList.today.sum) }} PLN</span>
-                    </h3>
-                    <div
-                        class="dashboard__info"
-                        *ngIf="expensesList.today.list.length === 0"
-                    >
-                        Brak wydatków
-                    </div>
-                    <app-expense
-                        *ngFor="let expense of expensesList.today.list"
-                        [expense]="expense"
-                    ></app-expense>
+                <div
+                    class="alert info"
+                    *ngIf="lastExpensesList.length === 0"
+                >
+                    Brak wydatków
                 </div>
-                <div>
-                    <h3 class="dashboard__subtitle">
-                        Wczoraj
-                        <span>{{ formatVal(expensesList.yesterday.sum) }} PLN</span>
-                    </h3>
-                    <div
-                        class="dashboard__info"
-                        *ngIf="expensesList.yesterday.list.length === 0"
-                    >
-                        Brak wydatków
-                    </div>
-                    <app-expense
-                        *ngFor="let expense of expensesList.yesterday.list"
-                        [expense]="expense"
-                    ></app-expense>
-                </div>
-                <div>
-                    <h3 class="dashboard__subtitle">
-                        Przedwczoraj
-                        <span>{{ formatVal(expensesList.dayBeforeYesterday.sum) }} PLN</span>
-                    </h3>
-                    <div
-                        class="dashboard__info"
-                        *ngIf="expensesList.dayBeforeYesterday.list.length === 0"
-                    >
-                        Brak wydatków
-                    </div>
-                    <app-expense
-                        *ngFor="let expense of expensesList.dayBeforeYesterday.list"
-                        [expense]="expense"
-                    ></app-expense>
-                </div>
+                <app-expense
+                    *ngFor="let expense of lastExpensesList"
+                    [expense]="expense"
+                ></app-expense>
             </div>
             <div class="dashboard__categories">
                 <h2 class="dashboard__title">Według kategorii</h2>
-                <app-categories [categories]="categories"></app-categories>
+                <app-categories [categories]="categories" *ngIf="categories.length"></app-categories>
+                <div class="alert info" *ngIf="!categories.length">
+                    Brak kategorii. <a routerLink="/categories">Dodaj</a> nową kategorię.
+                </div>
             </div>
         </div>
         <div class="dashboard__accounts">
@@ -75,6 +40,9 @@
                 *ngFor="let acc of accounts"
                 [account]="acc"
             ></app-account>
+            <div class="alert alert-info" *ngIf="!accounts.length">
+                Brak kont. <a href="#">Dodaj</a> nowe konto.
+            </div>
             <h2 class="dashboard__title">
                 Konta oszczędnościowe
             </h2>
@@ -82,6 +50,9 @@
                 *ngFor="let acc of saving"
                 [account]="acc"
             ></app-account>
+            <div class="alert info" *ngIf="!saving.length">
+                Brak kont.
+            </div>
         </div>
     </div>
 </div>

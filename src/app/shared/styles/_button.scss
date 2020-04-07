@@ -1,0 +1,25 @@
+.button {
+    background-color: #edf1f7;
+    border: 1px solid #edf1f7;
+    color: #222b45;
+    border-radius: 5px;
+    padding: 12px 15px;
+    font: 600 13px/1.36 'Poppins', sans-serif;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: all 0.3s;
+    letter-spacing: 0.5px;
+    &:hover {
+        background-color: #f7f9fc;
+        border-color: #f7f9fc;
+    }
+    &--primary {
+        background: var(--primary-color);
+        border-color: var(--primary-color);
+        color: #fff;
+        &:hover {
+            background-color: #598bff;
+            border-color: #598bff;
+        }
+    }
+}

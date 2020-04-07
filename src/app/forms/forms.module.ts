@@ -10,10 +10,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import {SharedModule} from '../shared/shared.module';
 import { MatDatepickerModule, MatFormFieldModule, MatNativeDateModule } from '@angular/material';
-import { CategoryFormComponent } from './category-form/category-form.component';
 import { TransferFormComponent } from './transfer-form/transfer-form.component';
 import { RefillFormComponent } from './refill-form/refill-form.component';
-;
 
 @NgModule({
     imports: [
@@ -32,7 +30,6 @@ import { RefillFormComponent } from './refill-form/refill-form.component';
         IncomeFormComponent,
         ExpenseFormComponent,
         AccountFormComponent,
-        CategoryFormComponent,
         TransferFormComponent,
         RefillFormComponent
     ],
