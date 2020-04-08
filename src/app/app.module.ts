@@ -18,6 +18,8 @@ import { ListRoutingModule } from './list/list-routing.module';
 import { ListModule } from './list/list.module';
 import { CategoriesModule } from './categories/categories.module';
 import { CategoriesRoutingModule } from './categories/categories-routing.module';
+import { AccountsModule } from './accounts/accounts.module';
+import { AccountsRoutingModule } from './accounts/accounts-routing.module';
 
 @NgModule({
     declarations: [AppComponent, LoginComponent],
@@ -38,7 +40,9 @@ import { CategoriesRoutingModule } from './categories/categories-routing.module'
         ListRoutingModule,
         ListModule,
         CategoriesModule,
-        CategoriesRoutingModule
+        CategoriesRoutingModule,
+        AccountsModule,
+        AccountsRoutingModule,
     ],
     providers: [
         { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

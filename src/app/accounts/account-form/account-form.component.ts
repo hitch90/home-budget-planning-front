@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AccountService } from '../../services/account.service';
 
@@ -8,6 +8,7 @@ import { AccountService } from '../../services/account.service';
     styleUrls: ['./account-form.component.scss']
 })
 export class AccountFormComponent implements OnInit {
+    @Output() addedAccount: EventEmitter<any> = new EventEmitter<any>();
     accountForm: FormGroup;
     status: string;
     constructor(
@@ -32,20 +33,25 @@ export class AccountFormComponent implements OnInit {
     }
 
     submit() {
-        const values = this.accountForm.getRawValue();
-        this.accountService.create({ ...values, currentValue: values.startValue}).subscribe(
-            () => {
-                this.status = 'ok';
-                this.accountForm.patchValue({
-                    name: '',
-                    description: '',
-                    startValue: 0,
-                    currency: 'pln',
-                    type: '',
-                    color: '',
-                });
-            },
-            () => (this.status = 'not-ok')
-        );
+        if (this.accountForm.valid) {
+            const values = this.accountForm.getRawValue();
+            this.accountService.create({ ...values, currentValue: values.startValue }).subscribe(
+                () => {
+                    this.status = 'ok';
+                    this.accountForm.patchValue({
+                        name: '',
+                        description: '',
+                        startValue: 0,
+                        currency: 'pln',
+                        type: '',
+                        color: '',
+                    });
+                    this.addedAccount.emit();
+                },
+                () => (this.status = 'not-ok')
+            );
+        } else {
+            this.status = 'not-ok';
+        }
     }
 }

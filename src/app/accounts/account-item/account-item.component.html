@@ -1,0 +1,24 @@
+<div class="account__item">
+    <div class="account__item-data">
+        <span
+            class="account__icon"
+            [ngStyle]="{ backgroundColor: account.color }"
+        >
+            <img *ngIf="account.image" [src]="account.image" [alt]="account.name" />
+        </span>
+        <span class="account__name">
+            {{ account.name }}
+            &nbsp;&nbsp;&nbsp;
+            <small [ngStyle]="{ backgroundColor: account.color }">
+                {{ account.color }}
+            </small>
+            &nbsp;&nbsp;&nbsp;
+            <small>
+                {{ account.type === 'saving' ? 'Konto oszczędnościowe' : '' }}
+            </small>
+        </span>
+    </div>
+    <p class="account__desc">
+        {{ account.description }}
+    </p>
+</div>

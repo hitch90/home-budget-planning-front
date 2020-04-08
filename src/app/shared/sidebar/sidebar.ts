@@ -1,4 +1,13 @@
-import { faTachometerAlt, faFileInvoiceDollar, faChartLine, faRoute, faMap, faLandmark, faListUl } from '@fortawesome/free-solid-svg-icons';
+import {
+    faTachometerAlt,
+    faFileInvoiceDollar,
+    faChartLine,
+    faRoute,
+    faMap,
+    faLandmark,
+    faListUl,
+    faUniversity
+} from '@fortawesome/free-solid-svg-icons';
 
 export const sidebarMenu = [
     {
@@ -6,7 +15,7 @@ export const sidebarMenu = [
         name: 'Dashboard',
         url: '/dashboard',
         icon: faTachometerAlt
-    }, 
+    },
     {
         id: 1,
         name: 'Wydatki',
@@ -51,5 +60,11 @@ export const sidebarMenu = [
         name: 'Kategorie',
         url: '/categories',
         icon: faListUl
+    },
+    {
+        id: 7,
+        name: 'Konta',
+        url: '/accounts',
+        icon: faUniversity
     }
 ];

@@ -1,8 +1,6 @@
 <form class="adding-form" [formGroup]="accountForm" (submit)="submit()">
-    <h2 class="forms-title">
-        Dodaj konto
-    </h2>
-    <app-alert type="error" *ngIf="status === 'not-ok'" text="Wystąpił błąd, spróbuj ponownie później"></app-alert>
+    <app-alert type="danger" *ngIf="status === 'not-ok' && accountForm.valid" text="Wystąpił błąd, spróbuj ponownie później"></app-alert>
+    <app-alert type="danger" *ngIf="status === 'not-ok' && !accountForm.valid" text="Wypełnij prawdiłowo wszystkie pola."></app-alert>
     <app-alert type="success" *ngIf="status === 'ok'" text="Dodane!"></app-alert>
     <div class="input">
         <label for="name">
@@ -12,24 +10,34 @@
     </div>
     <div class="input">
         <label for="startValue">
-            Początkowy stan konta
+            Stan konta
         </label>
         <div class="input-group">
             <input type="number" name="startValue" id="startValue" formControlName="startValue" />
-            <input type="text" name="currency" id="currency" formControlName="currency" />
         </div>
     </div>
     <div class="input">
         <label for="type">
             Typ konta
         </label>
-        <input type="text" name="type" id="type" formControlName="type" />
+        <select formControlName="type" id="type">
+            <option value="">Wybierz</option>
+            <option value="saving">Oszczędnościowe</option>
+            <option value="private">Prywatne</option>
+            <option value="credit">Kredyt</option>
+        </select>
     </div>
     <div class="input">
         <label for="color">
             Kolor
         </label>
-        <input type="text" name="type" id="color" formControlName="color" />
+        <input type="text" name="color" id="color" formControlName="color" />
+    </div>        
+    <div class="input">
+        <label for="image">
+            Obrazek
+        </label>
+        <input type="text" name="image" id="image" formControlName="image" />
     </div>    
     <div class="input">
         <label for="description">
