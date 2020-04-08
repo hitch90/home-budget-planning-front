@@ -9,6 +9,7 @@ import { AccountsComponent } from './accounts/accounts.component';
 import { AccountsListComponent } from './accounts-list/accounts-list.component';
 import { AccountItemComponent } from './account-item/account-item.component';
 import { AccountFormComponent } from './account-form/account-form.component';
+import { AccountTypePipe } from '../pipes/account-type.pipe';
 
 @NgModule({
     imports: [
@@ -23,7 +24,8 @@ import { AccountFormComponent } from './account-form/account-form.component';
         AccountsComponent,
         AccountsListComponent,
         AccountItemComponent,
-        AccountFormComponent
+        AccountFormComponent,
+        AccountTypePipe
     ],
     exports: []
 })

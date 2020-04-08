@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { IAccount } from '../../interfaces/account';
+import { formatValue } from '../../helpers/format-value';
 
 @Component({
     selector: 'app-account-item',
@@ -11,4 +12,8 @@ export class AccountItemComponent implements OnInit {
     constructor() {}
 
     ngOnInit(): void {}
+    
+    value(val) {
+        return formatValue(val);
+    }
 }

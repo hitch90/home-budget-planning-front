@@ -14,8 +14,11 @@
             </small>
             &nbsp;&nbsp;&nbsp;
             <small>
-                {{ account.type === 'saving' ? 'Konto oszczędnościowe' : '' }}
+                {{ account.type | accountType }}
             </small>
+        </span>
+        <span class="account__value">
+            {{ value(account.currentValue) }}
         </span>
     </div>
     <p class="account__desc">
