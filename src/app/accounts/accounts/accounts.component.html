@@ -1,0 +1,14 @@
+<div class="accounts">
+    <div class="accounts__list">
+        <h2 class="accounts__title">
+            Lista kont
+        </h2>
+        <app-accounts-list [accounts]="accounts"></app-accounts-list>
+    </div>
+    <div class="accounts__form">
+        <h2 class="accounts__title">
+            Dodaj konto
+        </h2>
+        <app-account-form (addedAccount)="getAccounts()"></app-account-form>
+    </div>
+</div>
