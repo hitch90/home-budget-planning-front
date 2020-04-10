@@ -1,6 +1,6 @@
-import {Injectable, OnInit, ViewChild} from '@angular/core';
+import { Injectable, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import * as dayjs from 'dayjs';
-import { map } from 'rxjs/operators';
+import { map, takeUntil } from 'rxjs/operators';
 import { IncomeService } from '../../services/income.service';
 import { ExpenseService } from '../../services/expense.service';
 import { CategoryService } from '../../services/category.service';
@@ -9,11 +9,13 @@ import {MatTableDataSource} from '@angular/material/table';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {formatValue} from '../../helpers/format-value';
+import { Subject } from 'rxjs';
 
 @Injectable()
-export class ListWrapperComponent implements OnInit {
+export class ListWrapperComponent implements OnInit, OnDestroy {
     @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
     @ViewChild(MatSort, { static: true }) sort: MatSort;
+    destroy$: Subject<boolean> = new Subject<boolean>();
     tableData: MatTableDataSource<any>;
     displayedColumns: string[] = ['id', 'name', 'value', 'date', 'category.name', 'account.name'];
     incomesDisplayedColumns: string[] = ['id', 'name', 'value', 'date'];
@@ -31,25 +33,39 @@ export class ListWrapperComponent implements OnInit {
     
     ngOnInit(): void {
         this.route.paramMap
+            .pipe(takeUntil(this.destroy$))
             .subscribe((data: any) => {
                 this.getListData(data.params);
             });
+    }
+    
+    ngOnDestroy(): void {
+        this.destroy$.next(true);
+        this.destroy$.unsubscribe();
     }
 
     getListData({ type }) {
         switch (type) {
             case 'expenses':
                 this.getCategories();
-                this.expenseService.getExpensesInMonths().subscribe((data: any) => {
+                this.expenseService.getExpensesInMonths()
+                    .pipe(takeUntil(this.destroy$))
+                    .subscribe((data: any) => {
                     this.barChartData = data;
                 });
-                this.expenseService.getExpenses().subscribe((data: any) => this.initTable(data));
+                this.expenseService.getExpenses()
+                    .pipe(takeUntil(this.destroy$))
+                    .subscribe((data: any) => this.initTable(data));
                 break;
             case 'incomes':
-                this.incomeService.getIncomesInMonths().subscribe((data: any) => {
+                this.incomeService.getIncomesInMonths()
+                    .pipe(takeUntil(this.destroy$))
+                    .subscribe((data: any) => {
                     this.barChartData = data;
                 });
-                this.incomeService.getIncomes().subscribe((data: any) => this.initTable(data));
+                this.incomeService.getIncomes()
+                    .pipe(takeUntil(this.destroy$))
+                    .subscribe((data: any) => this.initTable(data));
                 break;
         }
     }
@@ -89,7 +105,8 @@ export class ListWrapperComponent implements OnInit {
                         );
                         return item;
                      })
-                )
+                ),
+                takeUntil(this.destroy$)
             )
             .subscribe((data: any) => {
                 this.categories = data;

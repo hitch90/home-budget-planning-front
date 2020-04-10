@@ -1,7 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CategoryService } from '../../services/category.service';
 import { ICategory } from '../../interfaces/category';
-import { Subscription } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-categories',
@@ -10,20 +11,23 @@ import { Subscription } from 'rxjs';
 })
 export class CategoriesComponent implements OnInit, OnDestroy {
     categories: ICategory[] = [];
-    categories$: Subscription;
+    categoriesSub: Subscription;
+    destroy$: Subject<boolean> = new Subject<boolean>();
     constructor(private categoryService: CategoryService) {}
 
     ngOnInit(): void {
         this.getCategories();
     }
     
-    ngOnDestroy(): void {
-        this.categories$.unsubscribe();
+    ngOnDestroy() {
+        this.destroy$.next(true);
+        this.destroy$.unsubscribe();
     }
 
     getCategories() {
-        this.categories$ = this.categoryService
+        this.categoriesSub = this.categoryService
             .findParent()
+            .pipe(takeUntil(this.destroy$))
             .subscribe(cat => (this.categories = cat));
     }
 

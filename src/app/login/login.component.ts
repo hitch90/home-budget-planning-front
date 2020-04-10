@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import {AuthenticationService} from '../services/authentication.service';
+import { AuthenticationService } from '../services/authentication.service';
+import { first } from 'rxjs/operators';
 @Component({
     selector: 'app-login',
     templateUrl: './login.component.html',
@@ -13,7 +14,7 @@ export class LoginComponent implements OnInit {
         private formBuilder: FormBuilder,
         private router: Router,
         private authService: AuthenticationService
-    ) { }
+    ) {}
 
     ngOnInit() {
         this.authForm = this.formBuild();
@@ -28,8 +29,9 @@ export class LoginComponent implements OnInit {
 
     login() {
         const loginData = this.authForm.getRawValue();
-        this.authService.login(loginData).subscribe(data => {
-            this.router.navigate(['/dashboard']);
-        });
+        this.authService
+            .login(loginData)
+            .pipe(first())
+            .subscribe(() => this.router.navigate(['/dashboard']));
     }
 }

@@ -4,7 +4,7 @@ import { formatValue } from '../../helpers/format-value';
 import { combineLatest, Subject, Subscription } from 'rxjs';
 import { ExpenseService } from '../../services/expense.service';
 import { CategoryService } from '../../services/category.service';
-import { map } from 'rxjs/operators';
+import { map, take, takeUntil } from 'rxjs/operators';
 import { ICategory } from '../../interfaces/category';
 import { IncomeService } from '../../services/income.service';
 import { ConfigureModalComponent } from '../configure-modal/configure-modal.component';
@@ -23,10 +23,11 @@ interface MonthYear {
 })
 export class DashboardComponent implements OnInit, OnDestroy {
     private loadData = new Subject<any>();
-    loadData$ = this.loadData.asObservable();
     private balance$: Subscription;
     private expenses$: Subscription;
     private incomes$: Subscription;
+    destroy$: Subject<boolean> = new Subject<boolean>();
+    loadData$ = this.loadData.asObservable();
     loadedData = {
         categories: false,
         accounts: false
@@ -61,7 +62,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
     ) {}
 
     ngOnInit(): void {
-        this.balance$ = this.accountService.balance().subscribe(data => {
+        this.balance$ = this.accountService.balance()
+            .pipe(takeUntil(this.destroy$))
+            .subscribe(data => {
             this.balance = data;
             this.balanceLoading = false;
         });
@@ -75,15 +78,15 @@ export class DashboardComponent implements OnInit, OnDestroy {
         this.checkDataIsLoaded();
     }
 
-    ngOnDestroy(): void {
-        this.balance$.unsubscribe();
-        this.categories$.unsubscribe();
-        this.incomes$.unsubscribe();
-        this.expenses$.unsubscribe();
+    ngOnDestroy() {
+        this.destroy$.next(true);
+        this.destroy$.unsubscribe();
     }
 
     checkDataIsLoaded() {
-        this.loadData$.subscribe(data => {
+        this.loadData$
+            .pipe(takeUntil(this.destroy$))
+            .subscribe(data => {
             this.loadedData = { ...this.loadedData, ...data };
             if (this.loadedData.categories && this.loadedData.accounts) {
                 if (!this.categories.length || !this.accounts.length) {
@@ -96,6 +99,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     getLastExpenses() {
         this.expenseService
             .getExpenses({ limit: 5 })
+            .pipe(takeUntil(this.destroy$))
             .subscribe(
                 (expenses: any) => (this.lastExpensesList = expenses.list)
             );
@@ -105,7 +109,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
         combineLatest(
             this.expenseService.getExpensesInMonths(),
             this.incomeService.getIncomesInMonths()
-        ).subscribe(([expenses, incomes]: any) => {
+        )
+            .pipe(takeUntil(this.destroy$))
+            .subscribe(([expenses, incomes]: any) => {
             const balance = [];
             expenses.map((item, index) => {
                 balance[index] = incomes[index] - item;
@@ -129,11 +135,13 @@ export class DashboardComponent implements OnInit, OnDestroy {
     getSum(key, month, year): void {
         this.expenses$ = this.expenseService
             .getExpenses({ month: month + 1, year })
+            .pipe(takeUntil(this.destroy$))
             .subscribe(
                 data => (this.expenses[key] = this.formatVal(data['sum']))
             );
         this.incomes$ = this.incomeService
             .getIncomes({ month: month + 1, year })
+            .pipe(takeUntil(this.destroy$))
             .subscribe(
                 data => (this.incomes[key] = this.formatVal(this.calc(data)))
             );
@@ -177,7 +185,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
                             });
                     });
                     return cat;
-                })
+                }),
+                takeUntil(this.destroy$)
             )
             .subscribe((data: any) => {
                 this.categories = data;
@@ -190,6 +199,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     getAccounts() {
         this.accounts$ = this.accountService
             .findAll({ type: 'private' })
+            .pipe(takeUntil(this.destroy$))
             .subscribe(data => {
                 this.accounts = data;
                 this.loadData.next({
@@ -199,6 +209,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
         this.accounts$ = this.accountService
             .findAll({ type: 'saving' })
+            .pipe(takeUntil(this.destroy$))
             .subscribe(data => (this.saving = data));
     }
 

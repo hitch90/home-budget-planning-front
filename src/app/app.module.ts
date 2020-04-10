@@ -20,7 +20,7 @@ import { CategoriesModule } from './categories/categories.module';
 import { CategoriesRoutingModule } from './categories/categories-routing.module';
 import { AccountsModule } from './accounts/accounts.module';
 import { AccountsRoutingModule } from './accounts/accounts-routing.module';
-import { NbDialogModule, NbLayoutModule, NbThemeModule } from '@nebular/theme';
+import { NbDialogModule, NbThemeModule } from '@nebular/theme';
 
 @NgModule({
     declarations: [AppComponent, LoginComponent],
@@ -45,7 +45,7 @@ import { NbDialogModule, NbLayoutModule, NbThemeModule } from '@nebular/theme';
         CategoriesModule,
         CategoriesRoutingModule,
         AccountsModule,
-        AccountsRoutingModule,
+        AccountsRoutingModule
     ],
     providers: [
         { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
