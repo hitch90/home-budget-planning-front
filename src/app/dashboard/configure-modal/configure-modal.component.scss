@@ -1,0 +1,52 @@
+.configure {
+    background: #fff;
+    padding: 30px;
+    border-radius: 5px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    width: 700px;
+    max-width: 100%;
+    color: var(--text-color);
+    &__title {
+        font: 800 26px/1.4 'Spartan';
+        color: var(--text-color);
+        margin-bottom: 30px;
+        letter-spacing: 0;
+    }
+    &__steps {
+        margin: 30px 0;
+    }
+    &__step {
+        display: flex;
+        align-items: center;
+        margin: 0 0 30px;
+        &.active {
+            .configure__step {
+                &-icon {
+                    background: var(--success-color);
+                    color: #fff;
+                    border-color: var(--success-color);
+                }
+                &-name {
+                    opacity: 0.5;
+                }
+            }
+        }
+        &-icon {
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            text-align: center;
+            line-height: 37px;
+            border: 2px solid var(--info-color);
+            color: var(--info-color);
+            margin-right: 15px;
+        }
+        &-name {
+            font: 500 18px/1.4 'Poppins';
+            margin-right: 15px;
+        }
+        a {
+            text-decoration: none;
+        }
+    }
+}

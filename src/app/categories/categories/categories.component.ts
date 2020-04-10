@@ -9,7 +9,7 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./categories.component.scss']
 })
 export class CategoriesComponent implements OnInit, OnDestroy {
-    categories: ICategory[];
+    categories: ICategory[] = [];
     categories$: Subscription;
     constructor(private categoryService: CategoryService) {}
 

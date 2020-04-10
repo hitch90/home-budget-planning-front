@@ -20,6 +20,7 @@ import { CategoriesModule } from './categories/categories.module';
 import { CategoriesRoutingModule } from './categories/categories-routing.module';
 import { AccountsModule } from './accounts/accounts.module';
 import { AccountsRoutingModule } from './accounts/accounts-routing.module';
+import { NbDialogModule, NbLayoutModule, NbThemeModule } from '@nebular/theme';
 
 @NgModule({
     declarations: [AppComponent, LoginComponent],
@@ -34,6 +35,8 @@ import { AccountsRoutingModule } from './accounts/accounts-routing.module';
         ReactiveFormsModule,
         MatFormFieldModule,
         MatInputModule,
+        NbThemeModule.forRoot({ name: 'default' }),
+        NbDialogModule.forRoot(),
         /* app modules */
         DashboardModule,
         DashboardRoutingModule,

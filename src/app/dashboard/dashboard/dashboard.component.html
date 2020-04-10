@@ -1,58 +1,71 @@
-<div class="dashboard">
-    <div class="dashboard__grid">
-        <div class="dashboard__balance">
-            <app-balance
-                [balance]="formatVal(this.balance)"
-                [isLoading]="balanceLoading"
-            ></app-balance>
-            <app-stats [expense]="expenses" [income]="incomes"></app-stats>
-            <app-chart [data]="monthsData"></app-chart>
-        </div>
-        <div class="dashboard__expensesStats">
-            <div class="dashboard__expenses">
-                <h2 class="dashboard__title">
-                    Ostatnie wydatki
-                </h2>
-                <div
-                    class="alert info"
-                    *ngIf="lastExpensesList.length === 0"
-                >
-                    Brak wydatków
+<nb-layout>
+    <nb-layout-column>
+        <div class="dashboard">
+            <div class="dashboard__grid">
+                <div class="dashboard__balance">
+                    <app-balance
+                        [balance]="formatVal(this.balance)"
+                        [isLoading]="balanceLoading"
+                    ></app-balance>
+                    <app-stats
+                        [expense]="expenses"
+                        [income]="incomes"
+                    ></app-stats>
+                    <app-chart [data]="monthsData"></app-chart>
                 </div>
-                <app-expense
-                    *ngFor="let expense of lastExpensesList"
-                    [expense]="expense"
-                ></app-expense>
-            </div>
-            <div class="dashboard__categories">
-                <h2 class="dashboard__title">Według kategorii</h2>
-                <app-categories [categories]="categories" *ngIf="categories.length"></app-categories>
-                <div class="alert info" *ngIf="!categories.length">
-                    Brak kategorii. <a routerLink="/categories">Dodaj</a> nową kategorię.
+                <div class="dashboard__expensesStats">
+                    <div class="dashboard__expenses">
+                        <h2 class="dashboard__title">
+                            Ostatnie wydatki
+                        </h2>
+                        <div
+                            class="alert info"
+                            *ngIf="lastExpensesList.length === 0"
+                        >
+                            Brak wydatków
+                        </div>
+                        <app-expense
+                            *ngFor="let expense of lastExpensesList"
+                            [expense]="expense"
+                        ></app-expense>
+                    </div>
+                    <div class="dashboard__categories">
+                        <h2 class="dashboard__title">Według kategorii</h2>
+                        <app-categories
+                            [categories]="categories"
+                            *ngIf="categories.length"
+                        ></app-categories>
+                        <div class="alert info" *ngIf="!categories.length">
+                            Brak kategorii.
+                            <a routerLink="/categories">Dodaj</a> nową
+                            kategorię.
+                        </div>
+                    </div>
+                </div>
+                <div class="dashboard__accounts">
+                    <h2 class="dashboard__title">
+                        Konta
+                    </h2>
+                    <app-account
+                        *ngFor="let acc of accounts"
+                        [account]="acc"
+                    ></app-account>
+                    <div class="alert alert-info" *ngIf="!accounts.length">
+                        Brak kont. <a href="#">Dodaj</a> nowe konto.
+                    </div>
+                    <h2 class="dashboard__title">
+                        Konta oszczędnościowe
+                    </h2>
+                    <app-account
+                        *ngFor="let acc of saving"
+                        [account]="acc"
+                    ></app-account>
+                    <div class="alert info" *ngIf="!saving.length">
+                        Brak kont.
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="dashboard__accounts">
-            <h2 class="dashboard__title">
-                Konta
-            </h2>
-            <app-account
-                *ngFor="let acc of accounts"
-                [account]="acc"
-            ></app-account>
-            <div class="alert alert-info" *ngIf="!accounts.length">
-                Brak kont. <a href="#">Dodaj</a> nowe konto.
-            </div>
-            <h2 class="dashboard__title">
-                Konta oszczędnościowe
-            </h2>
-            <app-account
-                *ngFor="let acc of saving"
-                [account]="acc"
-            ></app-account>
-            <div class="alert info" *ngIf="!saving.length">
-                Brak kont.
-            </div>
-        </div>
-    </div>
-</div>
+    </nb-layout-column>
+</nb-layout>
+ 

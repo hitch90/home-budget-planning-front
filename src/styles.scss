@@ -1,13 +1,14 @@
 /* You can add global styles to this file, and also import other style files */
-@import '@angular/material/prebuilt-themes/deeppurple-amber.css';
-@import "app/shared/styles/reset";
+//@import '@angular/material/prebuilt-themes/deeppurple-amber.css';
+@import '@nebular/theme/styles/prebuilt/default.css';
+@import 'app/shared/styles/reset';
 
 :root {
-    --background: #F5F6FA;
+    --background: #f5f6fa;
     --page-background: #fff;
-    --link-color: #A5ADC6;
-    --link-hover: #3B4153;
-    --text-color: #3B4153;
+    --link-color: #a5adc6;
+    --link-hover: #3b4153;
+    --text-color: #3b4153;
     --primary-color: #3366ff;
     --success-color: #00d68f;
     --warning-color: #ffaa00;
@@ -29,15 +30,22 @@ body {
 @import '~@swimlane/ngx-datatable/assets/icons.css';
 @import 'sweetalert2/src/sweetalert2.scss';
 
-@import "app/shared/styles/layout";
-@import "app/shared/styles/alert";
-@import "app/shared/styles/button";
+@import 'app/shared/styles/layout';
+@import 'app/shared/styles/alert';
+@import 'app/shared/styles/button';
 
-
-
+a {
+    text-decoration: none;
+    color: var(--primary-color);
+    border-bottom: 1px solid transparent;
+    transition: all 0.3s;
+    &:hover {
+        border-bottom: 1px solid var(--primary-color);
+    }
+}
 .forms {
     &-title {
-        font: 800 26px/1.4 "Spartan";
+        font: 800 26px/1.4 'Spartan';
         color: var(--text-color);
         margin-bottom: 30px;
     }
@@ -50,8 +58,8 @@ body {
         font: 600 14px/30px 'Spartan';
         color: var(--text-color);
     }
-    input[type="text"],
-    input[type="number"],
+    input[type='text'],
+    input[type='number'],
     select {
         background-color: #f7f9fc;
         color: #222b45;
@@ -69,4 +77,19 @@ body {
             border-color: #3366ff;
         }
     }
+}
+
+.nb-theme-default nb-layout .layout {
+    background-color: transparent !important;
+    color: inherit !important;
+    font-family: inherit !important;
+    font-size: inherit !important;
+    font-weight: inherit !important;
+    line-height: inherit !important;
+    min-height: inherit !important;
+}
+
+.cdk-global-scrollblock {
+    position: static !important;
+    overflow: auto !important;
 }
