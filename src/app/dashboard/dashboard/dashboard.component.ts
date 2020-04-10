@@ -1,12 +1,15 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AccountService } from '../../services/account.service';
 import { formatValue } from '../../helpers/format-value';
-import { combineLatest, Subscription } from 'rxjs';
+import { combineLatest, Subject, Subscription } from 'rxjs';
 import { ExpenseService } from '../../services/expense.service';
 import { CategoryService } from '../../services/category.service';
 import { map } from 'rxjs/operators';
 import { ICategory } from '../../interfaces/category';
 import { IncomeService } from '../../services/income.service';
+import { ConfigureModalComponent } from '../configure-modal/configure-modal.component';
+import { NbDialogService } from '@nebular/theme';
+import { IAccount } from '../../interfaces/account';
 
 interface MonthYear {
     month: number;
@@ -19,11 +22,17 @@ interface MonthYear {
     styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit, OnDestroy {
-    balance$: Subscription;
+    private loadData = new Subject<any>();
+    loadData$ = this.loadData.asObservable();
+    private balance$: Subscription;
+    private expenses$: Subscription;
+    private incomes$: Subscription;
+    loadedData = {
+        categories: false,
+        accounts: false
+    };
     balance = 0;
     balanceLoading = true;
-    expenses$: Subscription;
-    incomes$: Subscription;
     expenses = {
         current: 0,
         last: 0
@@ -35,7 +44,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     categories$: Subscription;
     categories: ICategory[] = [];
     accounts$: Subscription;
-    accounts = [];
+    accounts: IAccount[] = [];
     saving = [];
     monthsData = {
         incomes: [],
@@ -47,7 +56,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
         private accountService: AccountService,
         private expenseService: ExpenseService,
         private incomeService: IncomeService,
-        private categoryService: CategoryService
+        private categoryService: CategoryService,
+        private dialogService: NbDialogService
     ) {}
 
     ngOnInit(): void {
@@ -62,6 +72,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
         this.getAccounts();
         this.getBalanceInMonths();
         this.getLastExpenses();
+        this.checkDataIsLoaded();
     }
 
     ngOnDestroy(): void {
@@ -69,6 +80,17 @@ export class DashboardComponent implements OnInit, OnDestroy {
         this.categories$.unsubscribe();
         this.incomes$.unsubscribe();
         this.expenses$.unsubscribe();
+    }
+
+    checkDataIsLoaded() {
+        this.loadData$.subscribe(data => {
+            this.loadedData = { ...this.loadedData, ...data };
+            if (this.loadedData.categories && this.loadedData.accounts) {
+                if (!this.categories.length || !this.accounts.length) {
+                    this.openSetupModal();
+                }
+            }
+        });
     }
 
     getLastExpenses() {
@@ -159,6 +181,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
             )
             .subscribe((data: any) => {
                 this.categories = data;
+                this.loadData.next({
+                    categories: true
+                });
             });
     }
 
@@ -167,12 +192,24 @@ export class DashboardComponent implements OnInit, OnDestroy {
             .findAll({ type: 'private' })
             .subscribe(data => {
                 this.accounts = data;
+                this.loadData.next({
+                    accounts: true
+                });
             });
 
         this.accounts$ = this.accountService
             .findAll({ type: 'saving' })
-            .subscribe(data => {
-                this.saving = data;
-            });
+            .subscribe(data => (this.saving = data));
+    }
+
+    protected openSetupModal() {
+        this.dialogService.open(ConfigureModalComponent, {
+            closeOnBackdropClick: false,
+            closeOnEsc: false,
+            context: {
+                categories: this.categories,
+                accounts: this.accounts
+            }
+        });
     }
 }

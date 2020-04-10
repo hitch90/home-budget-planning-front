@@ -4,6 +4,12 @@
             Lista kont
         </h2>
         <app-accounts-list [accounts]="accounts"></app-accounts-list>
+        <div class="alert info" *ngIf="!accounts.length">
+            Nie posiadasz żadnego konta. Użyj formularza i dodaj swoje konta.
+        </div>
+        <div class="accounts__image" *ngIf="!accounts.length">
+            <img src="../../../assets/images/empty-account.svg" alt="No accounts" />
+        </div>
     </div>
     <div class="accounts__form">
         <h2 class="accounts__title">

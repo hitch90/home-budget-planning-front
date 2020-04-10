@@ -1,0 +1,25 @@
+<div class="configure">
+    <h2 class="configure__title">
+        Aby rozpocząć dodaj kategorię i konto
+    </h2>
+     <div class="configure__steps">
+         <div class="configure__step" [ngClass]="{ 'active': categories.length }">
+             <div class="configure__step-icon">
+                 <i class="fas fa-check"></i>
+             </div>
+             <div class="configure__step-name">
+                 Dodaj pierwszą kategorię
+             </div>
+             <a routerLink="/categories" class="button button--small" [ngClass]="{ 'disabled': categories.length }">Przejdź do kategorii</a>
+         </div>
+         <div class="configure__step" [ngClass]="{ 'active': accounts.length }">
+             <div class="configure__step-icon">
+                 <i class="fas fa-check"></i>
+             </div>
+             <div class="configure__step-name">
+                 Dodaj pierwsze konto
+             </div>
+             <a routerLink="/accounts" class="button button--small" [ngClass]="{ 'disabled': accounts.length }">Przejdź do kont</a>
+         </div>
+     </div>
+</div>

@@ -8,5 +8,12 @@
         color: var(--text-color);
         margin-bottom: 30px;
     }
-    
+    &__image {
+        margin: 50px 0;
+        text-align: center;
+        img {
+            max-width: 320px;
+            margin: 0 auto;
+        }
+    }
 }

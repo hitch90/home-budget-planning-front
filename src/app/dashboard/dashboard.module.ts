@@ -10,9 +10,12 @@ import { CategoriesComponent } from './categories/categories.component';
 import { AccountComponent } from './account/account.component';
 import { ChartComponent } from './chart/chart.component';
 import { ExpenseComponent } from './expense/expense.component';
+import { ConfigureModalComponent } from './configure-modal/configure-modal.component';
+import { NbLayoutModule } from '@nebular/theme';
 
 @NgModule({
-    imports: [CommonModule, RouterModule, FontAwesomeModule, SharedModule],
+    imports: [CommonModule, RouterModule, FontAwesomeModule, SharedModule,         NbLayoutModule
+    ],
     declarations: [
         DashboardComponent,
         BalanceComponent,
@@ -20,7 +23,14 @@ import { ExpenseComponent } from './expense/expense.component';
         CategoriesComponent,
         AccountComponent,
         ChartComponent,
-        ExpenseComponent
-    ]
+        ExpenseComponent,
+        ConfigureModalComponent
+    ],
+    exports: [
+        ConfigureModalComponent
+    ],
+    entryComponents: [
+        ConfigureModalComponent
+    ],
 })
 export class DashboardModule {}

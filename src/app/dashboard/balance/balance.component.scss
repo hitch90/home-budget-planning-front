@@ -5,7 +5,7 @@
     background-position: center;
     border-radius: 10px;
     overflow: hidden;
-    
+    color: #fff;
     &__loader {
         display: flex;
         justify-content: center;
@@ -22,9 +22,11 @@
         font: 600 18px/1.4 'Spartan';
         margin-bottom: 25px;
         opacity: 0.9;
+        color: #fff;
     }
     &__value {
         font: 800 30px/1.4 'Spartan';
+        color: #fff;
         small {
             font-size: 50%;
             text-transform: uppercase;
@@ -33,5 +35,6 @@
     .ng-fa-icon {
         font-size: 26px;
         margin-right: 10px;
+        color: #fff;
     }
 }

@@ -4,6 +4,12 @@
             Lista kategorii
         </h2>
         <app-categories-tree [categories]="categories"></app-categories-tree>
+        <div class="alert info" *ngIf="!categories.length">
+            Nie utworzyłeś jeszcze żadnej kategorii. Użyj formularza i dodaj pierwszą kategorię.
+        </div>
+        <div class="categories__image" *ngIf="!categories.length">
+            <img src="../../../assets/images/empty-categories.svg" alt="No categories" />
+        </div>
     </div>
     <div class="categories__form">
         <h2 class="categories__title">
